@@ -229,8 +229,14 @@ class Fpc:
         return json.loads(res.text)
 
 
-    def editCustomerWifi(self):
-        pass
+    def editCustomerWifi(self, cid, sid, wifiNetworkId, wifiNetworkName=None, contactName=None, contactEmail=None, status=None, fpcwFapModels=[]):
+        data = {'wifiNetworkName':wifiNetworkName, 'contactName':contactName, 'contactEmail':contactEmail, 'status':status, 'fpcwFapModels':fpcwFapModels}
+        required = self.getCustomerWifi(cid, sid, wifiNetworkId)
+        for k, v in data.items():
+            if v is not None:
+                data[k] = required[k]
+        res = self._main('post', uri=f'/customers/{cid}/sites/{sid}/wifinetwork/{wifiNetworkId}', data=data)
+        return res.status_code
 
     def deleteCUstomerWifi(self, cid, sid, wifiNetworkId):
         res = self._main('post', uri=f'/customers/{cid}/sites/{sid}/wifinetworks/delete/{wifiNetworkId}')
