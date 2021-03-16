@@ -164,8 +164,16 @@ class Fpc:
         res = self._main('post', uri='/fortimanagers', data=data)
         return json.loads(res.text)
 
-    def editFortimanager(self):
-        pass
+    def editFortimanager(self, fmid, fortiManagerName=None, ipAddress=None, adminUserName=None, adminPassword=None, frequencyValue=None, 
+                        portNumber=None):
+        data = {'fortiManagerName': fortiManagerName,'ipAddress': ipAddress,'adminUserName': adminUserName,
+        'adminPassword': adminPassword,'frequencyValue': frequencyValue,'portNumber': portNumber}
+        required = self.getFortiManger(fmid)
+        for k, v in data.items():
+            if v is None:
+                data[k] = required[k]
+        res = self._main('post', uri=f'/fortimanagers/{fmid}', data=data)
+        return res.status_code
 
     def deleteFortiManager(self, fmid):
         res = self._main('post', uri=f'/fortimanagers/delete/{fmid}')
