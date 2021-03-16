@@ -148,3 +148,21 @@ class Fpc:
         res = self._main('post', uri=f'/customers/{cid}/users', data=data)
         return res.status_code
 
+    # FortiManager 
+
+    def getFortiMangers(self):
+        res = self._main('get', uri='/fortimanagers')
+        return json.loads(res.text)
+
+    def getFortiManger(self, fmid):
+        res = self._main('post', uri=f'/fortimanagers/{fmid}')
+        return json.loads(res.text)
+
+    def createFortimanager(self, fortiManagerName, ipAddress, adminUserName, adminPassword, frequencyValue, portNumber):
+        data = {'fortiManagerName': fortiManagerName,'ipAddress': ipAddress,'adminUserName': adminUserName,
+        'adminPassword': adminPassword,'frequencyValue': frequencyValue,'portNumber': portNumber}
+        res = self._main('post', uri='/fortimanagers', data=data)
+        return json.loads(res.text)
+
+    def editFortimanager(self):
+        pass
