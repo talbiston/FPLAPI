@@ -200,7 +200,11 @@ class Fpc:
         return json.loads(res.text)
 
     def editCustomerSite(self):
+        '''
+        I need to get back to this one! 
+        '''
         pass
 
-    def deleteCustomerSite(self):
-        pass
+    def deleteCustomerSite(self, cid, sid):
+        res = self._main('post', uri=f'/customers/{cid}/sites/delete/{sid}')
+        return res.status_code
