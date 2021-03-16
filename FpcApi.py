@@ -1,3 +1,4 @@
+from typing import List, json
 import requests
 import json
 import sys
@@ -17,14 +18,8 @@ class Fpc:
             if action == 'post':
                 res = self.session.post(url + uri, headers=self.fpc_sid, json=data, verify=False)
                 return res
-            if action == 'put':
-                res = self.session.put(url + uri, headers=self.fpc_sid, json=data, verify=False)
-                return res
             if action == 'get':
                 res = self.session.get(url + uri, headers=self.fpc_sid, verify=False)
-                return res
-            if action == 'delete':
-                res = self.session.delete(url + uri, headers=self.fpc_sid, verify=False)
                 return res
         except requests.exceptions.HTTPError:
             error = "An Http Error occurred: " + res.status_code
@@ -121,6 +116,17 @@ class Fpc:
         Not working for some reason!
         '''
         res = self._main('post', uri=f'customers/{cid}/delete')
+        return res.status_code
+
+    # Customer Adoms
+
+    def getCustomerAdoms(self, cid):
+        res = self._main('get', uri=f'/customers/{cid}/adoms')
+        return json.loads(res.text)
+
+    def setCustomerAdoms(self, id, cid, adoms=[]):
+        data = {'id': id, 'customerId': cid, 'adoms': adoms}
+        res = self._main('post', uri=f'/customers/{cid}/adoms', data=data)
         return res.status_code
 
     # Customer users
