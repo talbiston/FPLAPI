@@ -164,7 +164,8 @@ class Fpc:
         res = self._main('post', uri='/fortimanagers', data=data)
         return json.loads(res.text)
 
-    def editFortimanager(self, fmid, fortiManagerName=None, ipAddress=None, adminUserName=None, adminPassword=None, frequencyValue=None, 
+    def editFortimanager(self, fmid, fortiManagerName=None, ipAddress=None, adminUserName=None, adminPassword=None, 
+                        frequencyValue=None, 
                         portNumber=None):
         data = {'fortiManagerName': fortiManagerName,'ipAddress': ipAddress,'adminUserName': adminUserName,
         'adminPassword': adminPassword,'frequencyValue': frequencyValue,'portNumber': portNumber}
@@ -228,8 +229,8 @@ class Fpc:
         res = self._main('post', uri=f'/customers/{cid}/sites/{sid}/wifinetworks', data=data)
         return json.loads(res.text)
 
-
-    def editCustomerWifi(self, cid, sid, wifiNetworkId, wifiNetworkName=None, contactName=None, contactEmail=None, status=None, fpcwFapModels=[]):
+    def editCustomerWifi(self, cid, sid, wifiNetworkId, wifiNetworkName=None, contactName=None, contactEmail=None, 
+                        status=None, fpcwFapModels=[]):
         data = {'wifiNetworkName':wifiNetworkName, 'contactName':contactName, 'contactEmail':contactEmail, 'status':status, 'fpcwFapModels':fpcwFapModels}
         required = self.getCustomerWifi(cid, sid, wifiNetworkId)
         for k, v in data.items():
