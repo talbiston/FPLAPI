@@ -166,3 +166,7 @@ class Fpc:
 
     def editFortimanager(self):
         pass
+
+    def deleteFortiManager(self, fmid):
+        res = self._main('post', uri=f'/fortimanagers/delete/{fmid}')
+        return res.status_code
