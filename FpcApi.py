@@ -54,7 +54,7 @@ class Fpc:
         res = self._main('get', uri='/controllers')
         return res
 
-    # Customer Calls .
+    # Customer Calls
 
     def getCustomers(self):
         res = self._main('get', uri='/customers')
