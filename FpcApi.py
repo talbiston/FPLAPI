@@ -178,3 +178,29 @@ class Fpc:
     def deleteFortiManager(self, fmid):
         res = self._main('post', uri=f'/fortimanagers/delete/{fmid}')
         return res.status_code
+
+    # Customer Sites Provisioning
+
+    def getCustomerSites(self, cid):
+        res = self._main('get', uri=f'/customers/{cid}/sites')
+        return json.loads(res)
+
+    def getCustomerSite(self, cid, sid):
+        res = self._main('post', uri=f'/customers/{cid}/sites/{sid}')
+        return json.loads(res.text)
+
+    def createCustomerSite(self, cid, networkName, contactName, contactEmail, status=None, fpcDeviceModels=[]):
+        data = {'networkName': networkName, 'contactName': contactName, 'contactEmail': contactEmail}
+        if status:
+            data['status'] = status
+        if len(fpcDeviceModels) > 0:
+            data['fpcDeviceModels'] = fpcDeviceModels
+
+        res = self._main('post', uri=f'/customers/{cid}/sites', data=data)
+        return json.loads(res.text)
+
+    def editCustomerSite(self):
+        pass
+
+    def deleteCustomerSite(self):
+        pass
