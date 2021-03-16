@@ -209,6 +209,33 @@ class Fpc:
         res = self._main('post', uri=f'/customers/{cid}/sites/delete/{sid}')
         return res.status_code
 
+    # Customer Wifi Networks
+
+    def getAllCustomerWifi(self, cid, sid):
+        res = self._main('get', uri=f'/customers/{cid}/sites/{sid}/wifinetworks')
+        return json.loads(res.text)
+
+    def getCustomerWifi(self, cid, sid, wifiNetworkId):
+        res = self._main('get', uri=f'/customers/{cid}/sites/{sid}/wifinetwork/{wifiNetworkId}')
+        return json.loads(res.text)
+
+    def createCustomerWifi(self, cid , sid, wifiNetworkName, contactName, contactEmail, status=None, fpcwFapModels=[]):
+        data = {'wifiNetworkName': wifiNetworkName, 'contactName': contactName, 'contactEmail': contactEmail}
+        if status is not None:
+            data['status'] = status
+        if len(fpcwFapModels) > 0:
+            data['fpcwFapModels'] = fpcwFapModels
+        res = self._main('post', uri=f'/customers/{cid}/sites/{sid}/wifinetworks', data=data)
+        return json.loads(res.text)
+
+
+    def editCustomerWifi(self):
+        pass
+
+    def deleteCUstomerWifi(self, cid, sid, wifiNetworkId):
+        res = self._main('post', uri=f'/customers/{cid}/sites/{sid}/wifinetworks/delete/{wifiNetworkId}')
+        return res.status_code
+
     # Get all Customer Widgets Method
 
     def getCustomerWidgets(self, cid):
@@ -262,3 +289,6 @@ class Fpc:
         res = self._main('get', uri=f'/countries/{countryId}')
         return json.loads(res.text)
     
+    def getAllUsers(self):
+        res = self._main('get', uri='/users')
+        return json.loads(res.text)
