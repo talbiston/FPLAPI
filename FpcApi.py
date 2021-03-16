@@ -140,7 +140,6 @@ class Fpc:
         '''
         user = {'userName': userName, 'firstName': firstName, 'lastName': lastName, 'email': email, 'password':password}
         data = {**user}
-        print(data)
         res = self._main('post', uri=f'/customers/{cid}/users', data=data)
         return res.status_code
 
