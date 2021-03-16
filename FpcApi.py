@@ -1,4 +1,4 @@
-from typing import List, json
+from typing import List, Dict
 import requests
 import json
 import sys
@@ -208,3 +208,57 @@ class Fpc:
     def deleteCustomerSite(self, cid, sid):
         res = self._main('post', uri=f'/customers/{cid}/sites/delete/{sid}')
         return res.status_code
+
+    # Get all Customer Widgets Method
+
+    def getCustomerWidgets(self, cid):
+        res = self._main('get', uri=f'/customers/{cid}/widgets')
+        return json.loads(res.text)
+
+
+    # System Provisioning
+
+    def getAllDevices(self):
+        res = self._main('get', uri='/devices')
+        return json.loads(res.text)
+
+    def getAllAdoms(self):
+        res = self._main('get', uri='/adoms')
+        return json.loads(res.text)
+
+    def getAllRoles(self):
+        res = self._main('get', uri='/roles')
+        return json.loads(res.text)
+
+    def getRole(self, roleid):
+        res = self._main('get', uri=f'/roles/{roleid}')
+        return json.loads(res.text)
+
+    def getAllFaps(self):
+        res = self._main('get', uri='/faps')
+        return json.loads(res.text)
+
+    def getAuditLogs(self):
+        res = self._main('get', uri='/auditlogs')
+        return json.loads(res.text)
+
+    def getAlerts(self):
+        res = self._main('get', uri='/alerts')
+        return json.loads(res.text)
+
+    def getAllCloudUsage(self):
+        res = self._main('get', uri='/cloudusage')
+        return json.loads(res.text)
+
+    def getCustomerCloudUsage(self, cid):
+        res = self._main('get', uri=f'/cloudusage/{cid}')
+        return json.loads(res.text)
+
+    def getCountries(self):
+        res = self._main('get', uri='/countries')
+        return json.loads(res.text)
+    
+    def getCountry(self, countryId):
+        res = self._main('get', uri=f'/countries/{countryId}')
+        return json.loads(res.text)
+    
