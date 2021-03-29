@@ -22,7 +22,7 @@ class Fpc:
                 res = self.session.get(url + uri, headers=self.fpc_sid, verify=False)
                 return res
         except requests.exceptions.HTTPError:
-            error = "An Http Error occurred: " + res.status_code
+            error = "An Http Error occurred: "
             sys.exit(error)
         except requests.exceptions.ConnectionError as errc:
             error = "An Error Connecting to the API occurred: " + str(errc)
